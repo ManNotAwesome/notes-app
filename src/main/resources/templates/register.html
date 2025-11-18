@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="/style.css">
+    <title>Register</title>
+</head>
+<body>
+
+    <h2>Create Account</h2>
+
+    <input id="username" placeholder="Username" />
+    <br><br>
+    <input id="password" type="password" placeholder="Password" />
+    <br><br>
+
+    <button onclick="registerUser()">Register</button>
+
+    <p id="msg"></p>
+
+    <script>
+        function registerUser() {
+            const u = document.getElementById("username").value;
+            const p = document.getElementById("password").value;
+
+            fetch("http://localhost:8080/auth/register", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username: u, password: p })
+            })
+            .then(res => res.text())
+            .then(data => {
+                document.getElementById("msg").innerText = "User created!";
+            });
+        }
+    </script>
+
+</body>
+</html>

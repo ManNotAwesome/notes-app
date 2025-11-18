@@ -1,0 +1,70 @@
+/* Basic Page Styling */
+body {
+    font-family: Arial, sans-serif;
+    background: #f2f4f7;
+    margin: 0;
+    padding: 0;
+}
+
+/* Centered Container */
+.center-box {
+    width: 350px;
+    margin: 80px auto;
+    padding: 25px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.1);
+}
+
+/* Inputs */
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Buttons */
+button {
+    width: 100%;
+    padding: 10px;
+    background: #007bff;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    margin-top: 12px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #0056c7;
+}
+
+/* Notes Page Layout */
+.navbar {
+    background: #fff;
+    padding: 12px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+}
+
+.navbar a {
+    margin-right: 15px;
+    text-decoration: none;
+    font-weight: bold;
+    color: #007bff;
+}
+
+.note-card {
+    background: white;
+    padding: 15px;
+    margin: 12px auto;
+    width: 500px;
+    border-radius: 6px;
+    box-shadow: 0 0 6px rgba(0,0,0,0.1);
+}
+
+.note-card button {
+    width: auto;
+    background: red;
+}

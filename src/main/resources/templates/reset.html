@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="/style.css">
+    <title>Reset Password</title>
+</head>
+<body>
+
+    <h2>Reset Password</h2>
+
+    <input id="username" placeholder="Username" />
+    <br><br>
+    <input id="newPassword" placeholder="New Password" />
+    <br><br>
+
+    <button onclick="resetPass()">Reset</button>
+
+    <p id="msg"></p>
+
+    <script>
+        function resetPass() {
+            const u = document.getElementById("username").value;
+            const p = document.getElementById("newPassword").value;
+
+            fetch("http://localhost:8080/auth/reset", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username: u, password: p })
+            })
+            .then(res => res.text())
+            .then(data => {
+                document.getElementById("msg").innerText = "Password updated!";
+            });
+        }
+    </script>
+
+</body>
+</html>

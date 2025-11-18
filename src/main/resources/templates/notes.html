@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Notes</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<div class="navbar">
+    <a href="/">Home</a>
+    <a href="/login" onclick="localStorage.clear()">Logout</a>
+</div>
+
+<h2 style="text-align:center;margin-top:20px;">Your Notes</h2>
+
+<div id="notesList"></div>
+
+<div class="center-box">
+    <h3>Create Note</h3>
+
+    <input id="title" placeholder="Title">
+    <textarea id="content" placeholder="Content"></textarea>
+
+    <button onclick="createNote()">Add Note</button>
+
+    <p id="error" style="color:red;"></p>
+</div>
+
+<script>
+window.onload = function() {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+        return window.location.href = "/login";
+    }
+
+    fetch("/api/notes", {
+        method: "GET",
+        headers: { "Authorization":"Bearer "+token }
+    })
+    .then(res => res.ok ? res.json() : Promise.reject())
+    .then(data => {
+        let html = "";
+        data.forEach(n => {
+            html += `
+            <div class="note-card" id="note-${n.id}">
+                <strong>${n.title}</strong><br>
+                ${n.content}
+                <br><br>
+                <button onclick="deleteNote('${n.id}')">Delete</button>
+            </div>`;
+        });
+        document.getElementById("notesList").innerHTML = html;
+    })
+    .catch(() => {
+        document.getElementById("error").innerText = "Unauthorized";
+    });
+};
+
+function createNote() {
+    const token = localStorage.getItem("token");
+    const title = document.getElementById("title").value;
+    const content = document.getElementById("content").value;
+
+    fetch("/api/notes", {
+        method:"POST",
+        headers:{
+            "Content-Type":"application/json",
+            "Authorization":"Bearer "+token
+        },
+        body: JSON.stringify({ title, content })
+    })
+    .then(res => res.ok ? res.json() : Promise.reject())
+    .then(() => location.reload())
+    .catch(() => {
+        document.getElementById("error").innerText = "Unauthorized";
+    });
+}
+
+function deleteNote(id) {
+    const token = localStorage.getItem("token");
+
+    fetch(`/api/notes/${id}`, {
+        method: "DELETE",
+        headers: { "Authorization":"Bearer "+token }
+    })
+    .then(res => {
+        if (!res.ok) throw new Error();
+        document.getElementById(`note-${id}`).remove();
+    })
+    .catch(() => alert("Cannot delete"));
+}
+</script>
+
+</body>
+</html>

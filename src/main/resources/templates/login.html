@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<div class="center-box">
+    <h2>Login</h2>
+
+    <input id="username" placeholder="Username" />
+    <input id="password" placeholder="Password" type="password" />
+
+    <button onclick="login()">Login</button>
+
+    <p id="error" style="color:red;"></p>
+
+    <p>
+        <a href="/register">New user? Create account</a>
+    </p>
+</div>
+
+<script>
+function login() {
+
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
+
+    fetch("/auth/login", {
+        method:"POST",
+        headers:{ "Content-Type":"application/json" },
+        body: JSON.stringify({ username, password })
+    })
+    .then(res => {
+        if (!res.ok) throw new Error();
+        return res.json();
+    })
+    .then(data => {
+        localStorage.setItem("token", data.token);
+        window.location.href = "/ui/notes";
+    })
+    .catch(() => {
+        document.getElementById("error").innerText =
+            "Wrong username or password";
+    });
+}
+</script>
+
+</body>
+</html>
