@@ -27,9 +27,9 @@ function login() {
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
 
-    fetch("/auth/login", {
-        method:"POST",
-        headers:{ "Content-Type":"application/json" },
+    fetch("/auth/login", {   // CORRECT BACKEND PATH
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password })
     })
     .then(res => {
@@ -37,7 +37,10 @@ function login() {
         return res.json();
     })
     .then(data => {
+        // store the JWT properly
         localStorage.setItem("token", data.token);
+
+        // redirect to correct notes page
         window.location.href = "/ui/notes";
     })
     .catch(() => {

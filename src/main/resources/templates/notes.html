@@ -8,13 +8,16 @@
 
 <div class="navbar">
     <a href="/">Home</a>
-    <a href="/login" onclick="localStorage.clear()">Logout</a>
+	<a href="/change" class="btn-small">Change Password</a>
+    <a href="#" onclick="logout()">Logout</a>
 </div>
 
 <h2 style="text-align:center;margin-top:20px;">Your Notes</h2>
 
+<!-- Notes List -->
 <div id="notesList"></div>
 
+<!-- Create Note -->
 <div class="center-box">
     <h3>Create Note</h3>
 
@@ -27,16 +30,19 @@
 </div>
 
 <script>
-window.onload = function() {
-    const token = localStorage.getItem("token");
+const token = localStorage.getItem("token");
 
-    if (!token) {
-        return window.location.href = "/login";
-    }
+// Route guard
+if (!token) window.location.href = "/login";
 
+// Load Notes
+function loadNotes() {
     fetch("/api/notes", {
         method: "GET",
-        headers: { "Authorization":"Bearer "+token }
+        headers: {
+            "Authorization": "Bearer " + token,
+            "Content-Type": "application/json"
+        }
     })
     .then(res => res.ok ? res.json() : Promise.reject())
     .then(data => {
@@ -52,13 +58,13 @@ window.onload = function() {
         });
         document.getElementById("notesList").innerHTML = html;
     })
-    .catch(() => {
-        document.getElementById("error").innerText = "Unauthorized";
-    });
-};
+    .catch(() => window.location.href = "/login");
+}
 
+loadNotes();
+
+// Create note
 function createNote() {
-    const token = localStorage.getItem("token");
     const title = document.getElementById("title").value;
     const content = document.getElementById("content").value;
 
@@ -77,18 +83,26 @@ function createNote() {
     });
 }
 
+// Delete note
 function deleteNote(id) {
-    const token = localStorage.getItem("token");
-
     fetch(`/api/notes/${id}`, {
         method: "DELETE",
-        headers: { "Authorization":"Bearer "+token }
+        headers: {
+            "Authorization":"Bearer "+token,
+            "Content-Type":"application/json"
+        }
     })
     .then(res => {
         if (!res.ok) throw new Error();
         document.getElementById(`note-${id}`).remove();
     })
     .catch(() => alert("Cannot delete"));
+}
+
+// Logout
+function logout() {
+    localStorage.removeItem("token");
+    window.location.href = "/login";
 }
 </script>
 

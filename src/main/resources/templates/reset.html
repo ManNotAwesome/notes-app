@@ -1,38 +1,42 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<link rel="stylesheet" href="/style.css">
     <title>Reset Password</title>
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
 
+<div class="center-box">
     <h2>Reset Password</h2>
 
     <input id="username" placeholder="Username" />
-    <br><br>
-    <input id="newPassword" placeholder="New Password" />
-    <br><br>
+    <input id="newPassword" type="password" placeholder="New Password" />
 
     <button onclick="resetPass()">Reset</button>
 
     <p id="msg"></p>
 
-    <script>
-        function resetPass() {
-            const u = document.getElementById("username").value;
-            const p = document.getElementById("newPassword").value;
+    <p style="margin-top:15px;">
+        <a href="/login">← Back to Login</a>
+    </p>
+</div>
 
-            fetch("http://localhost:8080/auth/reset", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ username: u, password: p })
-            })
-            .then(res => res.text())
-            .then(data => {
-                document.getElementById("msg").innerText = "Password updated!";
-            });
-        }
-    </script>
+<script>
+function resetPass() {
+    const u = document.getElementById("username").value;
+    const p = document.getElementById("newPassword").value;
+
+    fetch("/auth/reset", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ username: u, password: p })
+    })
+    .then(res => res.text())
+    .then(() => {
+        document.getElementById("msg").innerText = "Password updated!";
+    });
+}
+</script>
 
 </body>
 </html>

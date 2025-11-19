@@ -25,10 +25,10 @@ public class SecurityConfig {
 
 		http.csrf(csrf -> csrf.disable());
 
-		// ... inside securityFilterChain(...)
-		http.authorizeHttpRequests(
-				auth -> auth.requestMatchers("/", "/login", "/register", "/reset", "/ui/**", "/auth/**").permitAll()
-						.requestMatchers("/api/notes/**").authenticated().anyRequest().permitAll());
+		http.authorizeHttpRequests(auth -> auth.requestMatchers("/login", "/register", "/reset", "/style.css")
+				.permitAll().requestMatchers("/auth/**").permitAll() // <-- REQUIRED
+				.requestMatchers("/api/notes/**").authenticated().requestMatchers("/ui/notes").permitAll().anyRequest()
+				.permitAll());
 
 		http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 

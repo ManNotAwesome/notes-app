@@ -77,4 +77,28 @@ public class AuthController {
 		userRepository.save(user);
 		return ResponseEntity.ok(Map.of("message", "Password updated"));
 	}
+
+	@PostMapping("/change")
+	public ResponseEntity<?> changePassword(@RequestBody Map<String, String> body) {
+
+		String oldPassword = body.get("oldPassword");
+		String newPassword = body.get("newPassword");
+		String username = body.get("username");
+
+		User user = userRepository.findByUsername(username);
+
+		if (user == null) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "User not found"));
+		}
+
+		if (!oldPassword.equals(user.getPassword())) {
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(Map.of("error", "Wrong old password"));
+		}
+
+		user.setPassword(newPassword);
+		userRepository.save(user);
+
+		return ResponseEntity.ok(Map.of("message", "Password changed"));
+	}
+
 }

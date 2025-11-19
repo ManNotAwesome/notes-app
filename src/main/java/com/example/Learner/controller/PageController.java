@@ -30,4 +30,10 @@ public class PageController {
 	public String notesPage() {
 		return "notes";
 	}
+
+	@GetMapping("/change")
+	public String changePasswordPage() {
+		return "change";
+	}
+
 }

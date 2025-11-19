@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Change Password</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<div class="navbar">
+    <a href="/ui/notes">Notes</a>
+    <a href="#" onclick="logout()">Logout</a>
+</div>
+
+<div class="center-box">
+    <h2>Change Password</h2>
+
+    <input id="oldPassword" type="password" placeholder="Old Password" />
+    <input id="newPassword" type="password" placeholder="New Password" />
+
+    <button onclick="changePass()">Change</button>
+
+    <p id="msg" style="color:red;"></p>
+
+    <p style="margin-top:15px;">
+        <a href="/ui/notes">← Back to Notes</a>
+    </p>
+</div>
+
+<script>
+const token = localStorage.getItem("token");
+const username = localStorage.getItem("username"); // if needed later
+
+if (!token) window.location.href = "/login";
+
+function changePass() {
+    const oldPassword = document.getElementById("oldPassword").value;
+    const newPassword = document.getElementById("newPassword").value;
+
+    fetch("/auth/change", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            username,
+            oldPassword,
+            newPassword
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        document.getElementById("msg").innerText = data.message || data.error;
+    });
+}
+
+function logout() {
+    localStorage.removeItem("token");
+    window.location.href = "/login";
+}
+</script>
+
+</body>
+</html>
