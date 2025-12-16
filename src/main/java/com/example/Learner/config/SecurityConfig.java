@@ -26,7 +26,7 @@ public class SecurityConfig {
 		http.csrf(csrf -> csrf.disable());
 
 		http.authorizeHttpRequests(auth -> auth.requestMatchers("/login", "/register", "/reset", "/style.css")
-				.permitAll().requestMatchers("/auth/**").permitAll() // <-- REQUIRED
+				.permitAll().requestMatchers("/auth/**").permitAll() 
 				.requestMatchers("/api/notes/**").authenticated().requestMatchers("/ui/notes").permitAll().anyRequest()
 				.permitAll());
 
