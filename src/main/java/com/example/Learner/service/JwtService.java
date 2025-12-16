@@ -22,7 +22,7 @@ public class JwtService {
 		return Keys.hmacShaKeyFor(SECRET.getBytes());
 	}
 
-	// 1. Generate TOKEN
+	
 	public String generateToken(String username) {
 		return Jwts.builder().setSubject(username).setIssuedAt(new Date(System.currentTimeMillis()))
 				.setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME))
@@ -44,7 +44,7 @@ public class JwtService {
 		return (extractedUsername.equals(username) && !isTokenExpired(token));
 	}
 
-	// 5. Check expiration
+	
 	private boolean isTokenExpired(String token) {
 		return extractExpiration(token).before(new Date());
 	}
