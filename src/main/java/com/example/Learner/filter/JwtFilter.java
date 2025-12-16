@@ -29,18 +29,18 @@ public class JwtFilter extends OncePerRequestFilter {
 		this.userRepository = userRepository;
 	}
 
-	// IMPORTANT: Paths that should NOT go through JWT filter
+	
 	@Override
 	protected boolean shouldNotFilter(HttpServletRequest request) {
 
 		String path = request.getServletPath();
 
-		return path.startsWith("/auth/") || // login, register, reset API
-				path.equals("/login") || // login page
-				path.equals("/register") || // register page
-				path.equals("/reset") || // reset page
-				path.equals("/") || // home
-				path.equals("/style.css") || // CSS
+		return path.startsWith("/auth/") ||
+				path.equals("/login") || 
+				path.equals("/register") || 
+				path.equals("/reset") || 
+				path.equals("/") || 
+				path.equals("/style.css") || 
 				path.startsWith("/css/") || path.startsWith("/js/") || path.startsWith("/images/");
 	}
 
