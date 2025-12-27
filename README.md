@@ -71,24 +71,20 @@ notes-app/
 
 ### 1️⃣ Clone Repo
 
-```bash
+
 git clone https://github.com/ManNotAwesome/notes-app.git
 cd notes-app
 2️⃣ Set MongoDB (Choose one)
 Local MongoDB
-bash
-Copy code
+
 spring.data.mongodb.uri=mongodb://localhost:27017/notesdb
 MongoDB Atlas
-ini
-Copy code
+
 spring.data.mongodb.uri=mongodb+srv://<username>:<password>@cluster.mongodb.net/notesdb
 3️⃣ Run the App
-bash
-Copy code
+
 mvn spring-boot:run
 Your app runs at:
 
-arduino
-Copy code
+
 http://localhost:8080
