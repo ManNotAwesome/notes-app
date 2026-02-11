@@ -1,10 +1,10 @@
 # 📝 Notes App (Spring Boot + MongoDB + JWT)
 
-A simple, clean, and secure Notes Web Application built with **Spring Boot**, **MongoDB**, **JWT Authentication**, and a **modern UI**.  
+A simple, clean, and secure Notes Web Application built with **Spring Boot**, **MongoDB**, **JWT Authentication**, and a **basic UI**.  
 Users can register, log in, create notes, view notes, and delete notes securely.
 
 ---
-🔗 [https://notes-app-iw8p.onrender.com]
+
 
 
 ## 🚀 Features
@@ -23,12 +23,7 @@ Users can register, log in, create notes, view notes, and delete notes securely.
 - Delete Note
 - Each user sees **only their own notes**
 
-### 🎨 Modern UI
-- Clean, modern card-based UI
-- Smooth animations and shadows
-- Improved forms and buttons
-- Responsive layout
-- Modern login / register / notes pages
+### 🎨 basic UI
 
 ---
 
@@ -38,17 +33,15 @@ Users can register, log in, create notes, view notes, and delete notes securely.
 - **Spring Boot**
 - **Spring Security**
 - **JWT Authentication**
-- **MongoDB / MongoDB Atlas**
+- **MongoDB**
 - **Maven**
 
 ### Frontend
 - Plain HTML
-- CSS (modernized)
+- CSS 
 - JavaScript (fetch API)
 
-### Deployment
-- **Render Web Service**
-- GitHub for CI/CD integration
+
 
 ---
 
@@ -69,22 +62,7 @@ notes-app/
 
 ## ⚙️ Setup (Local)
 
-### 1️⃣ Clone Repo
 
 
-git clone https://github.com/ManNotAwesome/notes-app.git
-cd notes-app
-2️⃣ Set MongoDB (Choose one)
-Local MongoDB
-
-spring.data.mongodb.uri=mongodb://localhost:27017/notesdb
-MongoDB Atlas
-
-spring.data.mongodb.uri=mongodb+srv://<username>:<password>@cluster.mongodb.net/notesdb
-3️⃣ Run the App
-
-mvn spring-boot:run
-Your app runs at:
 
 
-http://localhost:8080
